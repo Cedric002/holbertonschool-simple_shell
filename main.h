@@ -11,7 +11,7 @@
 extern char **environ;
 
 void printStrings(const char **array_of_strings);
-char **_get_argv(const char *str, const char * delimiter);
+char **_get_argv(const char *str, const char *delimiter);
 char *_getenv(const char *name);
 char *get_exec_name(char *name);
 char *_get_excutable_name_argv(const char **);
