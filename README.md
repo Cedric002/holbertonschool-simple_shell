@@ -15,7 +15,7 @@ All your files will be compiled on Ubuntu 20.04 LTS using gcc.
 
 
 ### Man page
-[man_1_simple_shell](https)
+[man_1_simple_shell](https://github.com/Cedric002/holbertonschool-simple_shell/blob/main/man_1_simple_shell)
 
 
 ##  Authors
