@@ -1,0 +1,26 @@
+.TH _Simple Shell
+.SH NAME
+Simple Shell \- Interacting with a linux operating system
+
+.SH SYNOPSIS
+./hsh
+/bin/ls
+
+.SH DESCRIPTION
+C shell is a Unix shell that provides a command-line user interface to
+interact with an operating system. She understands and executes the commands
+a user enters.
+
+.SH RETURN VALUE
+If successful, the command entered will be executed and will allow
+navigation with the files.
+
+.SH EXEMPLES
+[command] [option]
+$ ls
+
+.SH AUTHORS
+Cédric Guerin et Arsène Giriteka
+
+.TH man 8 "21/12/2023" "1.0" "Simple Shell man page"
+21/12/2023
