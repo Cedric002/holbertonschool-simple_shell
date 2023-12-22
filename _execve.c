@@ -8,7 +8,7 @@
 int _execve(const char **argv)
 {
 	pid_t child_pid;
-	int wstatus, exit_status;
+	int wstatus;
 	char *exec_path = NULL;
 
 	if  (argv != NULL && argv[0] != NULL)
@@ -20,30 +20,25 @@ int _execve(const char **argv)
 			if (child_pid == -1)
 				exit(EXIT_FAILURE);
 
-			if (child_pid == 0)
+			if (child_pid == 0 &&
+					execve(exec_path, (char *const *) argv, NULL) == -1)
 			{
-				if (execve(exec_path, (char *const *) argv, NULL) == -1)
-				{
-					fprintf(stderr, "%s : failed\n", argv[0]);
-					exit(EXIT_FAILURE);
-				}
-			}
-			else
-			{
-				waitpid(child_pid, &wstatus, 0);
-				if (wstatus)
-				{
-					exit_status = WEXITSTATUS(wstatus);
-					if (exit_status == EXIT_FAILURE)
-						return (EXIT_FAILURE);
-				}
+				_free(&exec_path);
+				fprintf(stderr, "%s : failed\n", argv[0]);
+				exit(EXIT_FAILURE);
 			}
 		}
 		else
 		{
 			fprintf(stderr, "%s : command can't be found!\n", argv[0]);
-			return (0);
+			return (EXIT_FAILURE);
 		}
 	}
-	return (1);
+	else
+		return (EXIT_FAILURE);
+
+	if (child_pid != 0)
+		waitpid(child_pid, &wstatus, 0);
+	_free(&exec_path);
+	return (EXIT_SUCCESS);
 }

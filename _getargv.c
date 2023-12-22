@@ -35,7 +35,7 @@ char **_get_argv(const char *string, const char *delimiter)
 	loop_counter = 0;
 	while (token != NULL && loop_counter < segments)
 	{
-		argv[loop_counter] = token;
+		argv[loop_counter] = strdup(token);
 		loop_counter++;
 		token = strtok(NULL, delimiter);
 	}
