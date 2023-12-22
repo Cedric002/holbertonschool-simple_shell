@@ -24,19 +24,18 @@ int main(int __attribute__((unused)) ac, char __attribute__((unused)) **argv)
 			{
 				if (execve(exec_name, (argv + 1), NULL) == -1)
 					exit(EXIT_FAILURE);
-				else
-					exit(EXIT_SUCCESS);
 			}
 			else
 				waitpid(child, &wstatus, 0);
 		}
-		fflush(stdout);
 	}
 
 	while (1)
 	{
+		
 		arg_vect = _prompt("$ ");
 		_execve((const char **) arg_vect);
+		clearerr(stdin);
 		continue;
 	}
 	return (0);
