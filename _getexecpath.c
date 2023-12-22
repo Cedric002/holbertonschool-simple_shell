@@ -26,6 +26,7 @@ char *_get_executable_path(const char *name)
 
 	if (tokens == NULL)
 	{
+		_free(&path);
 		return (NULL);
 	}
 
@@ -43,5 +44,6 @@ char *_get_executable_path(const char *name)
 		full_path = NULL;
 		loop_counter++;
 	}
+	_free_arr(&tokens);
 	return (full_path);
 }

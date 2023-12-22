@@ -40,5 +40,6 @@ char **_get_argv(const char *string, const char *delimiter)
 		token = strtok(NULL, delimiter);
 	}
 	argv[segments] = NULL;
+	_free(&str);
 	return (argv);
 }

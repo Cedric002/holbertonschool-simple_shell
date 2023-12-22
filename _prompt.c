@@ -13,7 +13,6 @@ char **_prompt(const char *_console_str)
 
 	printf("%s ", _console_str);
 	fflush(stdout);
-	clearerr(stdin);
 	read_bytes = getline(&user_input, &str_len, stdin);
 	if (read_bytes == -1)
 	{
@@ -36,9 +35,7 @@ char **_prompt(const char *_console_str)
 		exit(EXIT_SUCCESS);
 	}
 	else if (strcmp("env", user_input) == 0)
-	{
 		_printenv();
-	}
 	else
 		arg_vect = _get_argv((const char *) user_input, " ");
 	return (arg_vect);

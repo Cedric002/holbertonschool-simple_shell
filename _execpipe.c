@@ -23,19 +23,33 @@ int _execpipe(void)
 		if (arg_v != NULL && *arg_v != NULL)
 		{
 			exec_path = _get_executable_path((const char *) *(arg_v + 0));
-			child = fork();
-			if (child == -1)
-				exit (EXIT_FAILURE);
-			if (child == 0)
+			if (exec_path != NULL)
 			{
-				if (execve(exec_path, arg_v, NULL) == -1)
-					exit(EXIT_FAILURE);
+				child = fork();
+				if (child == -1)
+					exit (EXIT_FAILURE);
+				if (child == 0)
+				{
+					if (execve(exec_path, arg_v, NULL) == -1)
+					{
+						_free(&exec_path);
+						_free_arr(&arg_v);
+						exit(EXIT_FAILURE);
+					}
+					else
+					{
+						_free(&exec_path);
+						_free_arr(&arg_v);
+						exit(EXIT_SUCCESS);
+					}
+				}
 				else
-					exit(EXIT_SUCCESS);
+					waitpid(child, &wstatus, 0);
 			}
-			else
-				waitpid(child, &wstatus, 0);
 		}
+		_free(&exec_path);
+		_free(&user_input);
+		_free_arr(&arg_v);
 	}
 	exit (EXIT_SUCCESS);
 }
