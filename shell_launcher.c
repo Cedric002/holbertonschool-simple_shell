@@ -37,7 +37,6 @@ int main(int __attribute__((unused)) ac, char __attribute__((unused)) **argv)
 		
 		arg_vect = _prompt("$ ");
 		_execve((const char **) arg_vect);
-		clearerr(stdin);
 		continue;
 	}
 	return (0);
