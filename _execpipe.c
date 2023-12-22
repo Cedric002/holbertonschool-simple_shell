@@ -4,48 +4,38 @@
  * _execpipe - function
  * Return: nothing
  */
-void _execpipe(void)
+int _execpipe(void)
 {
-	char *user_input = NULL, *exec_path = NULL, **arg_v;
+	char *user_input = NULL, **arg_v = NULL, *exec_path = NULL;
 	size_t size = 0;
+	ssize_t read_bytes = 0;
 	pid_t child = 0;
 	int wstatus;
 
 	if (!isatty(fileno(stdin)))
 	{
-		if (getline(&user_input, &size, stdin) == -1)
+		read_bytes = getline(&user_input, &size, stdin);
+		if (read_bytes == -1)
+			return (EXIT_FAILURE);
+
+		*(user_input + read_bytes - 1) = '\0';
+		arg_v = _get_argv((const char *) user_input, " ");
+		if (arg_v != NULL && *arg_v != NULL)
 		{
-			if (feof(stdin))
-				_free(&user_input);
-		}
-		else
-		{
-			arg_v = _get_argv((const char *) user_input, " ");
-			exec_path = _get_executable_path((const char*) *(arg_v + 0));
-			if (exec_path != NULL)
+			exec_path = _get_executable_path((const char *) *(arg_v + 0));
+			child = fork();
+			if (child == -1)
+				exit (EXIT_FAILURE);
+			if (child == 0)
 			{
-				child = fork();
-				if (child == -1)
+				if (execve(exec_path, arg_v, NULL) == -1)
 					exit(EXIT_FAILURE);
-				if (child == 0)
-				{
-					if (execve(exec_path, arg_v, NULL) == -1)
-					{
-						clearerr(stdin);
-						exit(EXIT_FAILURE);
-					}
-					else
-						exit(EXIT_SUCCESS);
-				}
 				else
-				{
-					waitpid(child, &wstatus, 0);
-					fflush(stdout);
-					clearerr(stdin);
-					return;
-				}
+					exit(EXIT_SUCCESS);
 			}
-			
+			else
+				waitpid(child, &wstatus, 0);
 		}
 	}
+	exit (EXIT_SUCCESS);
 }
