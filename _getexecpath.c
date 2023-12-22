@@ -15,6 +15,12 @@ char *_get_executable_path(const char *name)
 	if (name == NULL || *name == '\0')
 		return (NULL);
 
+	if (access(name, X_OK) == 0)
+	{
+		full_path = strdup(name);
+		return (full_path);
+	}
+
 	path = _getenv("PATH");
 	tokens = _get_argv((const char *) path, ":");
 
