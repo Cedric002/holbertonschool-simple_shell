@@ -13,6 +13,7 @@ char **_prompt(const char *_console_str)
 
 	printf("%s ", _console_str);
 	fflush(stdout);
+	clearerr(stdin);
 	read_bytes = getline(&user_input, &str_len, stdin);
 	if (read_bytes == -1)
 	{
