@@ -20,5 +20,7 @@ int _execve(const char **argv);
 char *_get_executable_path(const char *name);
 void _free_arr(char ***str_arr);
 void _free(char **str);
+char **_prompt(const char *_console_str);
+void _printenv(void);
 
 #endif
