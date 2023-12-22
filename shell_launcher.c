@@ -29,6 +29,8 @@ int main(int __attribute__((unused)) ac, char __attribute__((unused)) **argv)
 				waitpid(child, &wstatus, 0);
 		}
 	}
+	if (!isatty(fileno(stdin)))
+		_execpipe();
 
 	while (1)
 	{
