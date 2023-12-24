@@ -10,10 +10,6 @@ For the compiled, using gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hs
 
 All your files will be compiled on Ubuntu 20.04 LTS using gcc.
 
-
-## Exemple using Shell
-
-
 ### Man page
 [man_1_simple_shell](https://github.com/Cedric002/holbertonschool-simple_shell/blob/main/man_1_simple_shell)
 
